@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsu.dao.UserMapper">
+
+    <select id="getUserById" parameterType="int" resultType="com.qst.mybatis.bean.User">
+        select id,username from users where id = #{id}
+        /*ResultSet ResultSetMataData 列名--User 属性名 setUsername*/
+    </select>
+     <!--   keyProperty  获取到的新插入的记录的主键赋值给返回对象的属性 -->
+    <insert id="saveUser" parameterType="com.qst.mybatis.bean.User" useGeneratedKeys="true" keyProperty="id">
+        insert into users(username) values(#{username});
+    </insert>
+
+    <!-- 多个用户对象 ， mybatis  会自动判断多个User，自动封装成集合   -->
+    <select id="listUser" resultType="com.qst.mybatis.bean.User">
+        select id,username from users ;
+    </select>
+
+
+    <update id="updateUser" parameterType="com.qst.mybatis.bean.User" >
+        update users set username=#{username} where id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+          delete from users where id=#{id}
+    </delete>
+
+</mapper>

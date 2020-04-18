@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsu.dao.BookMapper">
+
+        <select id="getBookById"  parameterType="String" resultType="com.jsu.bean.Book">
+            select * from  book where id =#{id}
+        </select>
+
+        <delete id="delete" parameterType="java.lang.String">
+          delete from book where id=#{id}
+        </delete>
+
+        <update id="update" parameterType="com.jsu.bean.Book">
+             update book set name=#{name} where id=#{id}
+        </update>
+
+        <insert id="saveBook" parameterType="com.jsu.bean.Book">
+            insert into book(id,name) values(#{id},#{name})
+        </insert>
+
+</mapper>
