@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsu.dao.PersonMapper">
+
+    <resultMap id="listPersonMap" type="com.jsu.bean.Person">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="listPerson" resultMap="listPersonMap">
+        SELECT p.id,p.name,c.card
+        from person p inner join card c
+        where p.id_card = c.id
+    </select>
+
+    <!--一对一分布查询-->
+    <resultMap id="getPersonInstepsMap" type="com.jsu.bean.Person">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="idCard" column="id_card"/>
+        <association select="com.jsu.dao.CardMapper.getCardById"
+                property="card" column="id" javaType="com.jsu.bean.Card"
+                foreignColumn="id_card" fetchType="lazy"/>
+
+    </resultMap>
+
+    <select id="getPersonInsteps" parameterType="int" resultMap="getPersonInstepsMap">
+       select id,name FROM person where id = #{id}
+    </select>
+
+</mapper>
