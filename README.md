@@ -1,2 +1,2 @@
-# SpringMybatisTest
+# mybatis
 mybatis
